@@ -14,27 +14,7 @@ and second condition is difference <0
 // ippo naa maathanum
 
 
-
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #include<stdio.h>   // change the 000 value when both the numbers are same
@@ -42,7 +22,7 @@ and second condition is difference <0
 #include<string.h>
 
 void get_input(int8_t *, int8_t *, int8_t *, int8_t *);
-void subtraction(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
+int subtraction(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 
 int main()
 {
@@ -87,10 +67,10 @@ void get_input(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size_
 }
 
 
-void subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size_2, int8_t *Answer)
+int subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size_2, int8_t *Answer)
 {
     int8_t diff=*(size_1) - *(size_2);
-    int8_t z=0, j=0, flag=0, first=0, second=0;
+    int8_t z=0, j=0, flag=0, first=0, second=0, adjust=0;
     int8_t result[50]={0};
 
 
@@ -155,6 +135,28 @@ void subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *siz
         }
         Answer[j]=0;
 
+            for(int8_t i=0; i<=j; i++)
+        {
+            if(*(Answer+i)=='0')
+            {
+                adjust++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for(int8_t a=0; a<=j-adjust; a++)
+        {
+
+            *(Answer + a)=*(Answer + a+adjust);
+        }
+
+        return 0;
+
+
+
         }
 
         else if(second==1)
@@ -190,6 +192,26 @@ void subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *siz
         }
         *(Answer+j)=0;
 
+   printf("inga answer enna %s and j value %d\n", Answer, j);
+            for(int8_t i=1; i<=j; i++)
+        {
+            if(*(Answer+i)=='0')
+            {
+                adjust++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for(int8_t a=1; a<=j-adjust; a++)
+        {
+
+            *(Answer + a)=*(Answer + a+adjust);
+        }
+
+        return 0;
 
 
         }
@@ -244,6 +266,35 @@ void subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *siz
             j++;
         }
         Answer[j]=0;
+
+
+            for(int8_t i=0; i<=j; i++)
+        {
+            if(*(Answer+i)=='0')
+            {
+                adjust++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for(int8_t a=0; a<=j-adjust; a++)
+        {
+
+            *(Answer + a)=*(Answer + a+adjust);
+        }
+
+        return 0;
+
+
+
+
+
+
+
+
     }
 
     if(diff<0 )
@@ -279,5 +330,29 @@ void subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *siz
             j++;
         }
         *(Answer+j)=0;
+
+            for(int8_t i=1; i<=j; i++)
+        {
+            if(*(Answer+i)=='0')
+            {
+                adjust++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for(int8_t a=1; a<=j-adjust; a++)
+        {
+
+            *(Answer + a)=*(Answer + a+adjust);
+        }
+
+        return 0;
+
+
+
+
     }
 }
