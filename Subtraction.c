@@ -15,17 +15,6 @@ and second condition is difference <0
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 */
 
 
