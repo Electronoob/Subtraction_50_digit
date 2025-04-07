@@ -1,45 +1,73 @@
-#include<stdio.h>   
+#include<stdio.h>
 #include<stdint.h>
 #include<string.h>
 
-void get_input(int8_t *, int8_t *, int8_t *, int8_t *);
+int get_input(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 int subtraction(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 
 int main()
 {
-    int8_t number_1[50], number_2[50], Answer[50];
+
+   while(1)
+   {
+
+    int8_t string1[100], number_1[50], number_2[50], Answer[52];
     int8_t size_1=0, size_2=0;
-    while(1)
+
+    if(get_input(string1, number_1, number_2, &size_1, &size_2)==0)
+
     {
-        get_input(number_1, number_2, &size_1, &size_2);
-        subtraction(number_1, number_2, &size_1, &size_2, &Answer[0]);
-        printf("Answer is %s\n\n", Answer);
+
+     subtraction(number_1, number_2, &size_1, &size_2, &Answer[0]);
+     printf("Answer = %s\n\n", Answer);
+
+
     }
+    else
+    {
+        printf("Invalid. Enter a valid number\n\n");
+    }
+   }
 
 }
 
-void get_input(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size_2)
-{  
-     int8_t string_1[50], string_2[50];
-     printf("Enter the first number : ");
-     fgets(string_1, 50, stdin);
-     *size_1 = strlen(string_1)-1;
 
-     printf("Enter the second number : ");
-     fgets(string_2, 50, stdin);
-     *size_2 = strlen(string_2)-1;
-
-     for(int8_t i=0; i<(*size_1); i++)
+int get_input(int8_t *string, int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size_2)
+{
+   int8_t size, first_set=0;
+   printf(">> ");
+    fgets(string, 100, stdin);
+    size =strlen(string)-1;
+    for(int8_t i=0; i<size; i++)
+    {
+        if(*(string+i)<48 || *(string + i)>57 )
         {
-            *(number_1+i) = *(string_1 + i) - 48;
+            if(*(string+i)!=43 && *(string+i)!='-' && *(string+i)!='*' && *(string+ i)!='/'  )
+            return -1;
+
+        }
+        if(*(string+i)=='-')
+        {   i+=1;
+            for(int8_t j=0; i<size; i++)
+            {
+               *(number_2+j)=*(string+i)-48;
+               j++;
+               (*size_2)++;
+            }
+
+            break;
+
+        }
+        else
+        {
+            *(number_1+i)=*(string+i)-48;
+            (*size_1)++;
         }
 
-    for(int8_t i=0; i<(*size_2); i++)
-        {
-            *(number_2+i) = *(string_2 + i) - 48;
-        }
-
+    }
+   return 0;
 }
+
 
 
 int subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size_2, int8_t *Answer)
@@ -78,7 +106,6 @@ int subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size
             for(int8_t i=*(size_2)-1; i>=0; i--)
         {
             result[z] = *(number_1 + i + diff) - *(number_2 + i);
-            printf("%d - %d\n",*(number_1 + i + diff), *(number_2 + i));
             if(result[z]<0)
             {
                 result[z] = *(number_1 + i + diff) + 10 - *(number_2 + i);
@@ -189,12 +216,9 @@ int subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size
        for(int8_t i=*(size_2)-1; i>=0; i--)
         {
             result[z] = *(number_1 + i + diff) - *(number_2 + i);
-            printf("%d - %d\n",*(number_1 + i + diff), *(number_2 + i));
             if(result[z]<0)
             {
-                printf("borrow vaanga ulla vanthan\n");
                 result[z] = *(number_1 + i + diff) + 10 - *(number_2 + i);
-                printf("result[z] : %d= %d - %d\n", result[z], *(number_1 + diff), *(number_2 + i) );
                 (*(number_1 + (i-1) + diff))--;
             }
             z++;
@@ -295,3 +319,4 @@ int subtraction(int8_t *number_1, int8_t *number_2, int8_t *size_1, int8_t *size
         return 0;
     }
 }
+
